@@ -15,7 +15,7 @@ void main() async {
   await DatabaseHelper.instance.database;
   await DatabaseHelper.instance.insertDummyData();
 
-  runApp(const MaterialApp(home: MyApp()));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
