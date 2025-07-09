@@ -7,13 +7,24 @@ import '../../../themes/themes.dart';
 import '../../../utils/utils.dart';
 import '../controllers/analytics_controller.dart';
 
-class AnalyticsView extends StatelessWidget {
+class AnalyticsView extends StatefulWidget {
   const AnalyticsView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final controller = Get.put(AnalyticsController());
+  State<AnalyticsView> createState() => _AnalyticsViewState();
+}
 
+class _AnalyticsViewState extends State<AnalyticsView> {
+  final controller = Get.put(AnalyticsController());
+
+  @override
+  void initState() {
+    controller.loadAllData();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: AppBar(
@@ -35,8 +46,11 @@ class AnalyticsView extends StatelessWidget {
         onTap: (i) => Utils.changePage(index: i),
       ),
       body: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
         final selectedDate = controller.selectedDate.value;
-        final dateList = controller.uniqueDates;
         final data = controller.detectionsBySelectedDate;
 
         if (selectedDate.isEmpty || data.isEmpty) {
@@ -112,16 +126,10 @@ class AnalyticsView extends StatelessWidget {
                               ),
                               TextButton(
                                 onPressed: () async {
-                                  // Jalankan aksi penghapusan
                                   await controller.deleteAllData();
-                                  controller.detectionList.clear();
                                   controller.selectedDate.value = '';
-                                  controller.update(); // jika pakai GetBuilder
-
-                                  // Tutup dialog
+                                  controller.update();
                                   Navigator.of(context).pop();
-
-                                  // Tampilkan snackbar sukses
                                   Get.snackbar(
                                     'Berhasil',
                                     'Data deteksi telah dihapus.',
@@ -177,7 +185,7 @@ class AnalyticsView extends StatelessWidget {
                                       ? Colors.blue
                                       : Colors.orange,
                               value: e.value.toDouble(),
-                              title: '${e.key}\n$percent%',
+                              title: '${e.key}\n$percent%\n${e.value}',
                               radius: 90,
                               titleStyle: const TextStyle(
                                 color: Colors.white,

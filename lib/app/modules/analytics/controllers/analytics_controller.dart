@@ -3,18 +3,10 @@ import '../../../data/sqlite/database.dart';
 
 class AnalyticsController extends GetxController {
   RxList<Map<String, dynamic>> detectionList = <Map<String, dynamic>>[].obs;
-  RxBool isLoading = false.obs;
+  RxBool isLoading = true.obs;
   RxString selectedDate = ''.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    loadAllData();
-  }
-
   Future<void> loadAllData() async {
-    isLoading.value = true;
-
     final data = await DatabaseHelper.instance.getAllDetections();
     detectionList.assignAll(data);
 
