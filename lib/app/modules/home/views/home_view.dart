@@ -74,6 +74,8 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
+  // Detection Focus 
+  // This function detects faces in the camera stream and predicts their expressions.
   Future<void> detectFaceAndPredict() async {
     final now = DateTime.now();
     if (_lastFrameTime != null) {
@@ -225,15 +227,15 @@ class _HomeViewState extends State<HomeView> {
                             ),
                           ),
                         ),
-                        if (_fps != null)
-                          Text(
-                            'FPS: ${_fps!.toStringAsFixed(2)}',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                              backgroundColor: Colors.black54,
-                            ),
-                          ),
+                        // if (_fps != null)
+                        //   Text(
+                        //     'FPS: ${_fps!.toStringAsFixed(2)}',
+                        //     style: const TextStyle(
+                        //       fontSize: 16,
+                        //       color: Colors.white,
+                        //       backgroundColor: Colors.black54,
+                        //     ),
+                        //   ),
                       ],
                     ),
                   ),
