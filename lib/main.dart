@@ -13,7 +13,6 @@ void main() async {
   cameras = await availableCameras();
 
   await DatabaseHelper.instance.database;
-  await DatabaseHelper.instance.insertDummyData();
 
   runApp(const MyApp());
 }

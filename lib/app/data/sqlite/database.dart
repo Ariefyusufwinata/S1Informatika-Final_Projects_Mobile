@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -98,8 +99,6 @@ class DatabaseHelper {
       };
       await db.insert('detection', dummy);
     }
-
-    print('✅ 100 data dummy berhasil disimpan (50 hari ini + 50 minggu lalu).');
   }
 
   Future<void> deleteDataExceptToday() async {
@@ -111,12 +110,12 @@ class DatabaseHelper {
 
     await db.delete('detection', where: 'date != ?', whereArgs: [todayStr]);
 
-    print('🧹 Data selain hari ini telah dihapus.');
+    debugPrint('🧹 Data selain hari ini telah dihapus.');
   }
 
   Future<void> clearAllData() async {
     final db = await instance.database;
     await db.delete('detection');
-    print('🗑️ Semua data telah dihapus.');
+    debugPrint('🗑️ Semua data telah dihapus.');
   }
 }

@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 import '../modules/splash_screen/views/splash_screen_view.dart';
 import '../modules/home/views/home_view.dart';
-import '../modules/analytics/views/analytics_view.dart';
+import '../modules/face_tracking/views/face_tracking_view.dart';
 
 part 'app_routes.dart';
 
@@ -23,9 +23,9 @@ class AppPages {
       page: () => const HomeView(),
     ),
     GetPage(
-      name: _Paths.ANALYTICS, 
+      name: _Paths.FACE_TRACKING,
       transition: Transition.fade,
-      page: () => const AnalyticsView(),
-    )
+      page: () => FaceTrackingView(),
+    ),
   ];
 }
